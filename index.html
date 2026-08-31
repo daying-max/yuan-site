@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>袁超 | 个人作品集</title>
+  <meta name="description" content="服务区连锁门店经营分析。清仓、激励、新品、补货写成规则，落成 SQL、飞书和 Tableau。另外会用 AI，也做过可演示的 AI 产品。" />
+  <style>
+    :root {
+      --blue: #2f6bff;
+      --blue-2: #1e4fd6;
+      --blue-deep: #1a3fb8;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --bg: #f5f7fb;
+      --card: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    a { color: var(--blue); text-decoration: none; }
+    button { font-family: inherit; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 30;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; color: var(--ink); }
+    .logo {
+      width: 32px; height: 32px; border-radius: 10px;
+      background: linear-gradient(135deg, #6d8dff, #3b5bfd);
+      color: #fff; display: grid; place-items: center;
+      font-weight: 800; font-size: 14px; letter-spacing: -.04em;
+    }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .icon-btn, .login-btn {
+      height: 36px; border: 1px solid var(--line); background: #fff;
+      border-radius: 10px; padding: 0 12px; cursor: pointer; color: var(--ink);
+    }
+    .login-btn { display: flex; align-items: center; gap: 6px; }
+
+    .hero {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.08)),
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(255,255,255,.06) 32px),
+        repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(255,255,255,.06) 32px),
+        linear-gradient(180deg, #3b6bff 0%, #2a4fe0 55%, #2446c9 100%);
+      color: #fff;
+      text-align: center;
+      padding: 72px 20px 56px;
+    }
+    .hero h1 { margin: 0 0 12px; font-size: clamp(32px, 5vw, 48px); letter-spacing: .02em; }
+    .hero p.sub { margin: 0 auto 28px; max-width: 36em; opacity: .92; font-size: 16px; }
+    .search {
+      width: min(640px, 92vw);
+      margin: 0 auto 36px;
+      background: #fff;
+      border-radius: 999px;
+      display: flex; align-items: center;
+      padding: 6px 6px 6px 18px;
+      box-shadow: 0 10px 30px rgba(20,40,120,.18);
+    }
+    .search input {
+      flex: 1; border: 0; outline: 0; font-size: 15px; height: 40px; color: var(--ink);
+    }
+    .search button {
+      border: 0; background: var(--blue); color: #fff;
+      height: 40px; padding: 0 22px; border-radius: 999px; cursor: pointer; font-weight: 600;
+    }
+    .stats { display: flex; justify-content: center; gap: 56px; flex-wrap: wrap; }
+    .stats b { display: block; font-size: 32px; line-height: 1.1; }
+    .stats span { font-size: 13px; opacity: .85; }
+
+    .main { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 80px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 22px; }
+    .filters button {
+      border: 1px solid var(--line); background: #fff; color: var(--ink);
+      height: 36px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+    }
+    .filters button.on { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(31,41,55,.05);
+      display: flex; flex-direction: column;
+      min-height: 280px;
+    }
+    .cover {
+      height: 128px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding: 12px 14px;
+      color: #fff; font-weight: 700; letter-spacing: .04em;
+    }
+    .pin {
+      background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.35);
+      font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 600;
+    }
+    .body { padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .body h3 { margin: 0; font-size: 18px; }
+    .body p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; flex: 1; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tags span {
+      font-size: 12px; background: #eef2ff; color: #3b5bfd;
+      padding: 3px 8px; border-radius: 999px;
+    }
+    .links { font-size: 13px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .empty { text-align: center; color: var(--muted); padding: 64px 0; }
+
+    .about {
+      margin-top: 36px;
+      background: #fff; border: 1px solid var(--line); border-radius: 16px;
+      padding: 22px 22px 8px;
+    }
+    .about h2 { margin: 0 0 10px; font-size: 16px; }
+    .about p { margin: 0 0 14px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    footer {
+      text-align: center; color: var(--muted); font-size: 13px;
+      padding: 8px 16px 40px;
+    }
+
+    .modal {
+      position: fixed; inset: 0; background: rgba(15,23,42,.45);
+      display: none; align-items: center; justify-content: center; z-index: 50; padding: 16px;
+    }
+    .modal.show { display: flex; }
+    .modal .box {
+      background: #fff; border-radius: 16px; padding: 22px; width: min(420px, 100%);
+    }
+    .modal h3 { margin: 0 0 8px; }
+    .modal p { margin: 0 0 8px; color: var(--muted); }
+
+    @media (max-width: 640px) {
+      .nav { padding: 0 14px; }
+      .stats { gap: 28px; }
+      .hero { padding: 48px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand"><div class="logo">袁</div>袁超</div>
+    <div class="nav-right">
+      <button class="icon-btn" id="focusSearch" aria-label="搜索">⌕</button>
+      <button class="login-btn" id="contactBtn">联系</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>袁超 | 个人作品集</h1>
+    <p class="sub">服务区连锁门店经营分析。把清仓、激励、新品、补货写成规则，落成 SQL、飞书和 Tableau；也会用 AI，能做可演示的产品。</p>
+    <form class="search" id="searchForm">
+      <input id="q" type="search" placeholder="输入关键词搜索作品..." autocomplete="off" />
+      <button type="submit">搜索</button>
+    </form>
+    <div class="stats">
+      <div><b id="statWorks">0</b><span>件作品</span></div>
+      <div><b id="statPin">0</b><span>件置顶</span></div>
+      <div><b>9</b><span>个看板</span></div>
+      <div><b>4</b><span>个分类</span></div>
+    </div>
+  </section>
+
+  <main class="main">
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>没有匹配的作品</p>
+
+    <section class="about">
+      <h2>怎么做事</h2>
+      <p>先把目的、判断指标、完成标准写进方案，再落到 MySQL 快照 / 日清表或飞书流程，最后用 Tableau 给门店用。看板只消费已经算好的字段，不在图里另发明一套口径。</p>
+      <p>周报口径：周转 = 销售成本 / [(期初+期末库存金额)/2]；ROI = 期间毛利 / (期初库存+期间到货)；人效 = GMV / 人数；坪效 = GMV / 面积；动销率 = 有销售 SKU / 在售 SKU。</p>
+      <p>杭州｜经营分析 / 商品分析 / 数据运营　15755321560　l18955123976@163.com</p>
+    </section>
+  </main>
+
+  <footer>袁超 · 个人作品集　单页即可投递，不依赖后台登录</footer>
+
+  <div class="modal" id="modal">
+    <div class="box">
+      <h3>联系</h3>
+      <p>电话 15755321560</p>
+      <p>邮箱 l18955123976@163.com</p>
+      <p>Tableau　public.tableau.com/app/profile/yuan.chao/vizzes</p>
+      <p>GitHub　github.com/daying-max</p>
+      <p style="margin-top:14px"><button class="login-btn" id="closeModal">关闭</button></p>
+    </div>
+  </div>
+
+<script>
+const WORKS = [
+  {
+    title: "滞销清仓跟踪",
+    cat: "经营分析",
+    pin: true,
+    cover: "线性 #2f6bff, #1e3fa8",
+    excerpt: "滞销须四条件同时满足：趋势系数<0.5、可售天数>90、滞销率>0.6、库龄>90。每月写入 shop.sp_history_goods，看板看库存额×消化率并下钻单品。",
+    tags: ["SQL", "Tableau", "库存"],
+    links: [
+      ["清仓看板", "https://public.tableau.com/views/_17641514218170/1?:language=zh-CN&:display_count=n&:origin=viz_share_link"],
+      ["判定说明", "https://my.feishu.cn/docx/UJYRduSrIo8zNlxPlckcUGrRnjf"]
+    ]
+  },
+  {
+    title: "每周门店销售激励",
+    cat: "经营分析",
+    pin: true,
+    cover: "线性 #3b82f6, #1d4ed8",
+    excerpt: "客流店不可比，拆销量/连带/客单/周转/动销/人效/ROI 为综合分。封顶5分，1分兑换1件，标杆3/2/1，看板出分可追。",
+    tags: ["激励", "Tableau", "指标"],
+    links: [
+      ["周激励看板", "https://public.tableau.com/views/_17530911747580/sheet17_1?:language=zh-CN&:display_count=n&:origin=viz_share_link"],
+      ["制度说明", "https://my.feishu.cn/docx/RaNqddkKyoTfp1xym96cWF9Nnac"]
+    ]
+  },
+  {
+    title: "新品开发看板",
+    cat: "商品库存",
+    pin: true,
+    cover: "线性 #6366f1, #312e81",
+    excerpt: "全年销售热力看节点，SKU×销售散点看「量高但 SKU 少」的拓品空位，和货盘方案同一套问题。",
+    tags: ["货盘", "Tableau"],
+    links: [
+      ["新品看板", "https://public.tableau.com/views/_17634515447600/sheet20?:language=zh-CN&:display_count=n&:origin=viz_share_link"],
+      ["需求与用法", "https://my.feishu.cn/docx/Cwxbd81ABoeVUHxPrsycryZ0n5W"]
+    ]
+  },
+  {
+    title: "门店新品需求流",
+    cat: "流程提效",
+    pin: false,
+    cover: "线性 #0ea5e9, #075985",
+    excerpt: "表单按「一款【特征】的【品类】」归集需求，多维表管评估到上架，阶段变更自动通知原提报人。",
+    tags: ["飞书", "多维表"],
+    links: [
+      ["需求池", "https://my.feishu.cn/base/Ij4tbwUQratlAusq9tocX0H7neg?table=tbl96heLyfuLJ3bh&view=vewMnpNgGD"],
+      ["流程说明", "https://my.feishu.cn/docx/Jj9td6fCCotmy5xaEAqcLXNEn5A"]
+    ]
+  },
+  {
+    title: "购物篮连带",
+    cat: "商品库存",
+    pin: false,
+    cover: "线性 #2563eb, #1e3a8a",
+    excerpt: "订单拆正反向两两组合，算支持度/置信度/提升度，日清写入 shop.sp_test_yc_month_data，给陈列和满赠。",
+    tags: ["关联分析", "SQL"],
+    links: [
+      ["购物篮看板", "https://public.tableau.com/views/_17649271875810/1_2?:language=zh-CN&:display_count=n&:origin=viz_share_link"],
+      ["口径说明", "https://my.feishu.cn/docx/NbNsdWo4GoOpJ9xVw26c9GFOn5f"]
+    ]
+  },
+  {
+    title: "影刀拉取周销售",
+    cat: "流程提效",
+    pin: false,
+    cover: "线性 #38bdf8, #0369a1",
+    excerpt: "周一 9 点会前用影刀定时把近四周销售写入飞书，取数约 30 分钟降至 0。",
+    tags: ["影刀", "RPA"],
+    links: [["流程说明", "https://my.feishu.cn/docx/JqGAdllBVoF6mVx3nQqcvEO5nqb"]]
+  },
+  {
+    title: "补货审批与撤店挪库",
+    cat: "流程提效",
+    pin: false,
+    cover: "线性 #60a5fa, #1d4ed8",
+    excerpt: "Work Buddy 审补货 100–300 条，由 3–4 小时降至约 20–30 分钟；挪库约 20 分钟出表。见过 99 条全匹配、0 错。",
+    tags: ["Work Buddy", "AI"],
+    links: [["两个工作流", "https://my.feishu.cn/docx/Fi3pdTdSWoTDMgx49PAcys6Mn0T"]]
+  },
+  {
+    title: "节假 / 月度 / 周一复盘",
+    cat: "经营分析",
+    pin: false,
+    cover: "线性 #818cf8, #3730a3",
+    excerpt: "先拆客运货运和出行背景，再下到销售、品类、门店对比。周报口径与看板对齐。",
+    tags: ["复盘", "口径"],
+    links: [
+      ["节假复盘", "https://my.feishu.cn/docx/TK8ydTAiwoHVbtx3THGcyx24nPe"],
+      ["11月复盘", "https://my.feishu.cn/docx/KihWdXb7CoNIyqxPUiecv2iYnOe"],
+      ["周一分析", "https://my.feishu.cn/docx/ZpU6d7s6WokXJGxWIzMcM6JznDc"]
+    ]
+  },
+  {
+    title: "服务区业务拆解 + 指标体系",
+    cat: "经营分析",
+    pin: false,
+    cover: "线性 #93c5fd, #1e40af",
+    excerpt: "按顾客路径拆到店与体验，指标从 GMV、客单拆到成本、毛利、周转、动销。",
+    tags: ["指标", "思维导图"],
+    links: [
+      ["业务拆解", "https://my.feishu.cn/mindnotes/KJlKb6TCxmyhtrnWsPqcBBQ3noc"],
+      ["指标体系", "https://my.feishu.cn/mindnotes/YCLObxTTtmujR9nk6nscOklMnkb"]
+    ]
+  },
+  {
+    title: "商超经营模拟平台",
+    cat: "AI产品",
+    pin: false,
+    cover: "线性 #7c3aed, #312e81",
+    excerpt: "情报→方案→按周沙盘→校准。AI 出结构和选项，数字走规则，不让模型直接编造业绩。面试用录屏。",
+    tags: ["AI产品", "GitHub"],
+    links: [["GitHub", "https://github.com/daying-max/ai-supermarket-platform"]]
+  },
+  {
+    title: "知图 · 视频知识图谱",
+    cat: "AI产品",
+    pin: false,
+    cover: "线性 #8b5cf6, #4c1d95",
+    excerpt: "课程视频转写到总框架 / 专题 / 知识点，可点图谱并导出。本机 Node + Python + ffmpeg。",
+    tags: ["AI产品", "GitHub"],
+    links: [["GitHub", "https://github.com/daying-max/video-knowledge-map"]]
+  },
+  {
+    title: "销售员工业务管理小程序",
+    cat: "AI产品",
+    pin: false,
+    cover: "线性 #a78bfa, #5b21b6",
+    excerpt: "租房销售用：房源、合同、业绩（服务费+租金抽成）、线索商店。Figma 公开站可点。",
+    tags: ["原型", "Figma"],
+    links: [["在线原型", "https://jargon-patch-89859635.figma.site"]]
+  }
+];
+
+const CATS = ["全部", "经营分析", "商品库存", "流程提效", "AI产品"];
+const covers = {
+  "经营分析": "linear-gradient(135deg,#3b6bff,#1e3fa8)",
+  "商品库存": "linear-gradient(135deg,#2563eb,#0f3a8a)",
+  "流程提效": "linear-gradient(135deg,#0ea5e9,#075985)",
+  "AI产品": "linear-gradient(135deg,#7c3aed,#312e81)"
+};
+
+let cat = "全部";
+let q = "";
+
+function renderFilters() {
+  const box = document.getElementById("filters");
+  box.innerHTML = CATS.map(c => `<button data-cat="${c}" class="${c===cat?"on":""}">${c}</button>`).join("");
+  box.querySelectorAll("button").forEach(btn => {
+    btn.onclick = () => { cat = btn.dataset.cat; render(); };
+  });
+}
+
+function filtered() {
+  const key = q.trim().toLowerCase();
+  return WORKS.filter(w => {
+    if (cat !== "全部" && w.cat !== cat) return false;
+    if (!key) return true;
+    const blob = [w.title, w.excerpt, w.cat, ...(w.tags||[])].join(" ").toLowerCase();
+    return blob.includes(key);
+  });
+}
+
+function render() {
+  renderFilters();
+  const list = filtered();
+  document.getElementById("statWorks").textContent = WORKS.length;
+  document.getElementById("statPin").textContent = WORKS.filter(w => w.pin).length;
+  const grid = document.getElementById("grid");
+  const empty = document.getElementById("empty");
+  empty.hidden = list.length > 0;
+  grid.innerHTML = list.map(w => `
+    <article class="card">
+      <div class="cover" style="background:${covers[w.cat]}">
+        <span>${w.cat}</span>
+        ${w.pin ? '<span class="pin">置顶</span>' : ""}
+      </div>
+      <div class="body">
+        <h3>${w.title}</h3>
+        <p>${w.excerpt}</p>
+        <div class="tags">${w.tags.map(t => `<span>${t}</span>`).join("")}</div>
+        <div class="links">${w.links.map(([n,h]) => `<a href="${h}" target="_blank" rel="noopener">${n}</a>`).join("")}</div>
+      </div>
+    </article>
+  `).join("");
+}
+
+document.getElementById("searchForm").onsubmit = (e) => {
+  e.preventDefault();
+  q = document.getElementById("q").value;
+  render();
+};
+document.getElementById("q").addEventListener("input", (e) => {
+  q = e.target.value;
+  render();
+});
+document.getElementById("focusSearch").onclick = () => document.getElementById("q").focus();
+document.getElementById("contactBtn").onclick = () => document.getElementById("modal").classList.add("show");
+document.getElementById("closeModal").onclick = () => document.getElementById("modal").classList.remove("show");
+document.getElementById("modal").onclick = (e) => {
+  if (e.target.id === "modal") e.target.classList.remove("show");
+};
+
+render();
+</script>
+</body>
+</html>
