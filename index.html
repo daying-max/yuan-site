@@ -166,7 +166,7 @@
 
   <section class="hero">
     <h1>袁超 | 个人作品集</h1>
-    <p class="sub">服务区连锁门店经营分析。把清仓、激励、新品、补货写成规则，落成 SQL、飞书和 Tableau；也会用 AI，能做可演示的产品。</p>
+    <p class="sub">主业是服务区连锁门店经营分析。清仓、激励、新品、购物篮写成规则，落成 SQL 和 Tableau。AI 提效和 AI 产品是补充，不是另一条主线。</p>
     <form class="search" id="searchForm">
       <input id="q" type="search" placeholder="输入关键词搜索作品..." autocomplete="off" />
       <button type="submit">搜索</button>
@@ -175,7 +175,7 @@
       <div><b id="statWorks">0</b><span>件作品</span></div>
       <div><b id="statPin">0</b><span>件置顶</span></div>
       <div><b>9</b><span>个看板</span></div>
-      <div><b>4</b><span>个分类</span></div>
+      <div><b>5</b><span>个分类</span></div>
     </div>
   </section>
 
@@ -185,8 +185,9 @@
     <p class="empty" id="empty" hidden>没有匹配的作品</p>
 
     <section class="about">
-      <h2>怎么做事</h2>
-      <p>先把目的、判断指标、完成标准写进方案，再落到 MySQL 快照 / 日清表或飞书流程，最后用 Tableau 给门店用。看板只消费已经算好的字段，不在图里另发明一套口径。</p>
+      <h2>怎么看这些作品</h2>
+      <p>上面按分类筛。经营分析、商品库存是主业：先写判断标准和完成条件，再落到 MySQL 或飞书，最后用 Tableau 给门店用。看板只吃已经算好的字段。</p>
+      <p>「AI提效」是把取数、审单从分析工作里抽出来；「AI产品」是独立做过的可演示产品（本机可跑、面试录屏，不是公网完整服务）。和门店项目分开看。</p>
       <p>周报口径：周转 = 销售成本 / [(期初+期末库存金额)/2]；ROI = 期间毛利 / (期初库存+期间到货)；人效 = GMV / 人数；坪效 = GMV / 面积；动销率 = 有销售 SKU / 在售 SKU。</p>
       <p>杭州｜经营分析 / 商品分析 / 数据运营　15755321560　l18955123976@163.com</p>
     </section>
@@ -245,7 +246,7 @@ const WORKS = [
   },
   {
     title: "门店新品需求流",
-    cat: "流程提效",
+    cat: "经营分析",
     pin: false,
     cover: "线性 #0ea5e9, #075985",
     excerpt: "表单按「一款【特征】的【品类】」归集需求，多维表管评估到上架，阶段变更自动通知原提报人。",
@@ -269,7 +270,7 @@ const WORKS = [
   },
   {
     title: "影刀拉取周销售",
-    cat: "流程提效",
+    cat: "AI提效",
     pin: false,
     cover: "线性 #38bdf8, #0369a1",
     excerpt: "周一 9 点会前用影刀定时把近四周销售写入飞书，取数约 30 分钟降至 0。",
@@ -278,7 +279,7 @@ const WORKS = [
   },
   {
     title: "补货审批与撤店挪库",
-    cat: "流程提效",
+    cat: "AI提效",
     pin: false,
     cover: "线性 #60a5fa, #1d4ed8",
     excerpt: "Work Buddy 审补货 100–300 条，由 3–4 小时降至约 20–30 分钟；挪库约 20 分钟出表。见过 99 条全匹配、0 错。",
@@ -330,7 +331,7 @@ const WORKS = [
   },
   {
     title: "销售员工业务管理小程序",
-    cat: "AI产品",
+    cat: "产品原型",
     pin: false,
     cover: "线性 #a78bfa, #5b21b6",
     excerpt: "租房销售用：房源、合同、业绩（服务费+租金抽成）、线索商店。Figma 公开站可点。",
@@ -339,12 +340,13 @@ const WORKS = [
   }
 ];
 
-const CATS = ["全部", "经营分析", "商品库存", "流程提效", "AI产品"];
+const CATS = ["全部", "经营分析", "商品库存", "AI提效", "AI产品", "产品原型"];
 const covers = {
   "经营分析": "linear-gradient(135deg,#3b6bff,#1e3fa8)",
   "商品库存": "linear-gradient(135deg,#2563eb,#0f3a8a)",
-  "流程提效": "linear-gradient(135deg,#0ea5e9,#075985)",
-  "AI产品": "linear-gradient(135deg,#7c3aed,#312e81)"
+  "AI提效": "linear-gradient(135deg,#0ea5e9,#075985)",
+  "AI产品": "linear-gradient(135deg,#7c3aed,#312e81)",
+  "产品原型": "linear-gradient(135deg,#a78bfa,#5b21b6)"
 };
 
 let cat = "全部";
